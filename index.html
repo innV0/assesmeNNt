@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation Management Maturity Assessment (IMMQ)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#374151',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #000000;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen pt-32">
+    <!-- Fixed Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 bg-white shadow-lg border-b border-gray-200 z-50">
+        <div class="container mx-auto px-4 py-4 max-w-6xl">
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-lg font-semibold text-black">Innovation Maturity Assessment</h2>
+                <button onclick="exportQuestionnaireData()" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 text-sm">
+                    <i data-lucide="download" class="inline-block w-4 h-4 mr-1"></i> Export Data
+                </button>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-gray-700">Progress</span>
+                <span class="text-sm text-gray-500" id="progressText">0/37 aspects</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-black h-2 rounded-full transition-all duration-300" id="progressBar" style="width: 0%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">You can export data with partial responses</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-gray-200">
+            <h1 class="text-3xl font-bold text-black mb-4">
+                Innovation Management Maturity Assessment (IMMQ)
+            </h1>
+            <p class="text-gray-600 mb-6">
+                Assess your organization's innovation capabilities across five key dimensions using a simple two-axis evaluation system.
+            </p>
+            
+            <!-- How to Complete Section -->
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-black mb-4">
+                    <i data-lucide="clipboard-list" class="inline-block w-5 h-5 mr-1"></i> How to Complete This Assessment
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-semibold text-black mb-3 flex items-center">
+                            <i data-lucide="target" class="w-5 h-5 mr-2"></i>
+                            Interest Dimension
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">meh</span>
+                                <span class="text-gray-600">Low interest - "Not a priority at the moment."</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">hmmm</span>
+                                <span class="text-gray-600">Medium interest - "Interesting, we should consider this."</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">must!</span>
+                                <span class="text-gray-600">High interest - "Crucial for our strategy, we must act."</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <h4 class="font-semibold text-black mb-3 flex items-center">
+                            <i data-lucide="trending-up" class="w-5 h-5 mr-2"></i>
+                            Maturity Dimension
+                        </h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">oops...</span>
+                                <span class="text-gray-600">Very early - "Not started or barely begun; needs a lot of work."</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">kinda</span>
+                                <span class="text-gray-600">Intermediate - "It works, but still needs polishing."</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="font-mono text-gray-600">wow</span>
+                                <span class="text-gray-600">Fully mature - "Nailed it; very reliable and complete."</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 border-l-4 border-gray-400 p-4 rounded">
+                    <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                        <i data-lucide="target" class="w-5 h-5 mr-2"></i> Assessment Objective
+                    </h4>
+                    <p class="text-gray-700 text-sm">
+                        For each innovation aspect, evaluate both your organization's <strong>current maturity level</strong> and your <strong>interest in developing it further</strong>. 
+                        This creates a priority matrix to help you focus resources on high-impact areas: prioritize "must!/wow" (high interest, high maturity) for scaling, 
+                        and "must!/oops..." (high interest, low maturity) for development initiatives.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organization Info -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8 border border-gray-200">
+            <h2 class="text-xl font-semibold text-black mb-4 flex items-center">
+                <i data-lucide="building" class="w-6 h-6 mr-2"></i>
+                Organization Information
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="building-2" class="w-4 h-4 mr-1"></i>
+                        Organization Name
+                    </label>
+                    <input type="text" id="orgName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="briefcase" class="w-4 h-4 mr-1"></i>
+                        Industry/Sector
+                    </label>
+                    <input type="text" id="orgSector" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="users" class="w-4 h-4 mr-1"></i>
+                        Number of Employees
+                    </label>
+                    <select id="orgSize" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                        <option value="">Select...</option>
+                        <option value="1-10">1-10 employees</option>
+                        <option value="11-50">11-50 employees</option>
+                        <option value="51-250">51-250 employees</option>
+                        <option value="251-1000">251-1000 employees</option>
+                        <option value="1001-5000">1001-5000 employees</option>
+                        <option value="5000+">5000+ employees</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+                        Organization Scope
+                    </label>
+                    <select id="orgScope" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                        <option value="">Select...</option>
+                        <option value="WholeCompany">Whole Company</option>
+                        <option value="Region">Region</option>
+                        <option value="Department">Department</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="user" class="w-4 h-4 mr-1"></i>
+                        Evaluator
+                    </label>
+                    <input type="text" id="evaluator" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                        Assessment Date
+                    </label>
+                    <input type="date" id="assessmentDate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-1"></i>
+                        Organization Description
+                    </label>
+                    <textarea id="orgDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black" 
+                        placeholder="Describe your organization, including its business model, main products/services, and market position..."></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Providing detailed and specific information will enhance the accuracy of the maturity assessment by giving context for the AI to tailor the assessment to your organization's characteristics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aspects Form -->
+        <form id="innovationForm">
+            <div id="aspectsContainer"></div>
+        </form>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden mt-8">
+            <div class="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
+                <h2 class="text-2xl font-bold text-black mb-6">
+                    <i data-lucide="trending-up" class="inline-block w-6 h-6 mr-1"></i> Innovation Maturity Report
+                </h2>
+                
+                <!-- Completion Notice -->
+                <div id="completionNotice" class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-gray-700">
+                        <strong>Report Completeness:</strong> <span id="completionPercentage">0%</span> of aspects answered.
+                        <span id="completionMessage"></span>
+                    </p>
+                </div>
+                
+                <!-- Overall Score -->
+                <div class="bg-gradient-to-r from-black to-gray-600 text-white rounded-lg p-6 mb-6">
+                    <div class="text-center">
+                        <h3 class="text-xl font-semibold mb-2">Overall Score</h3>
+                        <div class="text-4xl font-bold mb-2" id="totalScore">0/100</div>
+                        <div class="text-lg" id="maturityLevel">Maturity Level</div>
+                    </div>
+                </div>
+
+                <!-- Priority Matrix -->
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold text-black mb-4">Priority Matrix (Interest vs Maturity)</h4>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <div id="priorityMatrix" class="overflow-x-auto"></div>
+                        <div class="mt-4 flex justify-center space-x-6 text-sm text-gray-600">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-gray-200 border border-gray-300"></div>
+                                <span>Low Priority</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-gray-400 border border-gray-300"></div>
+                                <span>Medium Priority</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-gray-700 border border-gray-300"></div>
+                                <span>High Priority</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dimension Scores -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6" id="dimensionScores"></div>
+
+                <!-- Additional Data -->
+                <div id="additionalDataSection" class="mb-6 hidden">
+                    <h4 class="text-lg font-semibold text-black mb-4">
+                        <i data-lucide="database" class="inline-block w-5 h-5 mr-1"></i> Additional Information Captured
+                    </h4>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <div id="additionalDataContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="bg-gray-50 border-l-4 border-gray-400 p-4 rounded mb-6">
+                    <h4 class="font-semibold text-black mb-2">
+                        <i data-lucide="lightbulb" class="inline-block w-5 h-5 mr-1"></i> Key Recommendations
+                    </h4>
+                    <div id="recommendations" class="text-gray-700"></div>
+                </div>
+
+                <!-- Download Button -->
+                <div class="text-center">
+                    <button onclick="downloadResults()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
+                        <i data-lucide="download" class="inline-block w-5 h-5 mr-1"></i> Download Full Report (JSON)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Innovation Maturity Assessment Schema
+        const IMMQ_SCHEMA = {
+          "schema_info": {
+            "title": "Innovation Management Maturity Assessment",
+            "version": "3.0.0",
+            "publication_date": "2025-06-10",
+            "description": "A consolidated and streamlined assessment tool for evaluating organizational innovation maturity.",
+            "authors": [
+              "Innovation Management Research Team"
+            ],
+            "license": "MIT"
+          },
+          "metamodel": {
+            "assessment_framework": "Innovation Maturity Model",
+            "methodology": "Interest-Maturity Matrix Assessment",
+            "maturity_levels": {
+              "0": {
+                "name": "Very early",
+                "label": "oops...",
+                "description": "Not started or barely begun; needs a lot of work.",
+                "color": "gray"
+              },
+              "1": {
+                "name": "Intermediate",
+                "label": "kinda",
+                "description": "It works, but still needs polishing.",
+                "color": "gray"
+              },
+              "2": {
+                "name": "Fully mature",
+                "label": "wow",
+                "description": "Nailed it; very reliable and complete.",
+                "color": "gray"
+              }
+            },
+            "interest_levels": {
+              "0": {
+                "name": "Low interest",
+                "label": "meh",
+                "description": "Not a priority at the moment.",
+                "color": "gray"
+              },
+              "1": {
+                "name": "Medium interest",
+                "label": "hmmm",
+                "description": "Interesting, we should consider this.",
+                "color": "gray"
+              },
+              "2": {
+                "name": "High interest",
+                "label": "must!",
+                "description": "Crucial for our strategy, we must act.",
+                "color": "gray"
+              }
+            },
+            "scoring": {
+              "total_dimensions": 5,
+              "total_aspects": 37
+            }
+          },
+          "dimensions": {
+            "Strategy and Innovation Vision": {
+              "description": "Evaluates how innovation is integrated into the corporate strategy, and how this vision is communicated.",
+              "icon": "lightbulb",
+              "aspects": [
+                {
+                  "index": 1,
+                  "id": "strategy-definition-and-communication",
+                  "title": "Definition and Communication of Innovation Strategy",
+                  "question": "Is there an innovation vision that is formally integrated into the corporate strategy and communicated in a clear, coherent, and systematic way to the entire organization?",
+                  "options": [
+                    "Innovation is a sporadic concept, with no defined vision or formal communication.",
+                    "A general vision or idea exists, but it is not formally integrated into the strategy and its communication is irregular or limited to management.",
+                    "Yes, innovation is an explicit strategic pillar, with a clear vision that is proactively communicated to all levels of the organization."
+                  ]
+                },
+                {
+                  "index": 2,
+                  "id": "goals-alignment",
+                  "title": "Goals Alignment",
+                  "question": "Are innovation goals aligned with overall business objectives?",
+                  "options": [
+                    "Innovation goals are not defined or are disconnected from business objectives.",
+                    "Goals are defined but only partially aligned with business objectives.",
+                    "Yes, innovation goals are fully aligned with and directly support business objectives."
+                  ]
+                },
+                {
+                  "index": 3,
+                  "id": "market-trends",
+                  "title": "Market Trends Analysis",
+                  "question": "Does the organization systematically analyze market and technology trends to identify opportunities?",
+                  "options": [
+                    "Market and technology trends are not systematically analyzed.",
+                    "Analysis is performed ad-hoc or informally.",
+                    "Yes, there is a systematic process for monitoring and analyzing trends to inform strategy."
+                  ]
+                },
+                {
+                  "index": 4,
+                  "id": "strategic-owner",
+                  "title": "Strategic Owner",
+                  "question": "Is a responsible person or formal team assigned for defining and monitoring innovation strategy?",
+                  "options": [
+                    "No one is formally responsible for innovation strategy.",
+                    "Responsibility is ambiguous or shared informally.",
+                    "Yes, there is a clear owner (e.g., Chief Innovation Officer, Innovation Committee) for the innovation strategy."
+                  ]
+                },
+                {
+                  "index": 5,
+                  "id": "portfolio-management",
+                  "title": "Innovation Portfolio Management",
+                  "question": "Is there a balanced portfolio of innovation projects (incremental, radical)?",
+                  "options": [
+                    "No portfolio management; projects are ad-hoc.",
+                    "A portfolio exists but is not balanced (e.g., only incremental innovation).",
+                    "Yes, a balanced portfolio is actively managed to align with strategic goals."
+                  ]
+                },
+                {
+                  "index": 6,
+                  "id": "long-term-orientation",
+                  "title": "Long-term Orientation",
+                  "question": "Does the innovation strategy have a long-term orientation?",
+                  "options": [
+                    "The focus is only on short-term needs.",
+                    "There is some long-term consideration, but it is not a primary focus.",
+                    "Yes, the strategy balances short-term needs with a long-term vision."
+                  ]
+                },
+                {
+                  "index": 7,
+                  "id": "resource-allocation",
+                  "title": "Resource Allocation",
+                  "question": "Is resource allocation for innovation aligned with strategic priorities?",
+                  "options": [
+                    "Resource allocation is not aligned with strategic priorities.",
+                    "Allocation is partially aligned but often diverted to other areas.",
+                    "Yes, resource allocation is directly tied to and protected for strategic innovation priorities."
+                  ]
+                }
+              ]
+            },
+            "Innovation Process and Methodologies": {
+              "description": "Examines the formal and informal processes, methodologies, and governance for managing innovation.",
+              "icon": "settings",
+              "aspects": [
+                {
+                  "index": 8,
+                  "id": "formalized-innovation-process",
+                  "title": "Formalized Innovation Management Process",
+                  "question": "Does the organization have a formal, structured process (e.g., funnel or stage-gate) to manage the lifecycle of ideas, from their generation and evaluation to the decision-making for their development?",
+                  "options": [
+                    "Ideas are managed informally and unstructured; decisions are made without clear criteria.",
+                    "Parts of a process exist (e.g., an idea box or basic prototyping), but it is not integrated or governed by formal phases and criteria.",
+                    "Yes, a formal, documented process with clear phases and criteria (decision gates) exists to manage the flow of innovation projects."
+                  ]
+                },
+                {
+                  "index": 9,
+                  "id": "methodologies-adoption",
+                  "title": "Methodologies Adoption",
+                  "question": "Are innovation methodologies (e.g., Design Thinking, Lean Startup, Agile) actively used?",
+                  "options": [
+                    "No specific innovation methodologies are used.",
+                    "Methodologies are used sporadically or by a few individuals.",
+                    "Yes, specific methodologies are systematically used and adapted to the organization's needs."
+                  ]
+                },
+                {
+                  "index": 10,
+                  "id": "prototyping-testing",
+                  "title": "Prototyping and Testing",
+                  "question": "Is there a systematic approach to prototyping and testing ideas with users?",
+                  "options": [
+                    "Prototyping and testing are not standard practices.",
+                    "Prototyping and testing are done, but not systematically.",
+                    "Yes, there is a systematic and agile approach to creating and testing prototypes."
+                  ]
+                },
+                {
+                  "index": 11,
+                  "id": "project-management",
+                  "title": "Innovation Project Management",
+                  "question": "Are innovation projects managed with appropriate methodologies?",
+                  "options": [
+                    "Innovation projects are not managed with specific methodologies.",
+                    "Traditional project management methodologies are used for all projects.",
+                    "Yes, agile or specific innovation project management methodologies are used."
+                  ]
+                },
+                {
+                  "index": 12,
+                  "id": "knowledge-management",
+                  "title": "Knowledge Management",
+                  "question": "Is knowledge from innovation projects systematically captured and shared?",
+                  "options": [
+                    "Knowledge from projects is not captured or shared.",
+                    "Knowledge is captured, but not systematically shared.",
+                    "Yes, there is a system for capturing, storing, and sharing knowledge and lessons learned."
+                  ]
+                }
+              ]
+            },
+            "Innovation Culture and Leadership": {
+              "description": "Assesses the organizational mindset, leadership support, and cultural norms that foster or hinder innovation.",
+              "icon": "users",
+              "aspects": [
+                {
+                  "index": 13,
+                  "id": "internal-collaboration-culture",
+                  "title": "Internal Collaboration Culture",
+                  "question": "How does the organization promote an active culture of collaboration and the creation of multidisciplinary teams across different areas or departments?",
+                  "options": [
+                    "Departments work in silos; collaboration is scarce or non-existent.",
+                    "Occasional meetings or projects are promoted, but collaboration is not systematic and depends on individual initiatives.",
+                    "Interdepartmental collaboration is a standard practice, actively fostered with multidisciplinary teams and collaborative platforms."
+                  ]
+                },
+                {
+                  "index": 14,
+                  "id": "innovation-skills-training",
+                  "title": "Skills Training and Development",
+                  "question": "Does the organization invest in a planned way in developing its employees' competencies in innovation (e.g., methodologies like Design Thinking, management tools, creativity, etc.)?",
+                  "options": [
+                    "There is no specific training plan for innovation.",
+                    "Courses are offered sporadically or reactively when a project requires it, but without a structured program.",
+                    "A continuous and strategic training program exists to develop innovation skills at all levels of the organization."
+                  ]
+                },
+                {
+                  "index": 15,
+                  "id": "leadership-commitment-sponsorship",
+                  "title": "Leadership Commitment and Sponsorship",
+                  "question": "Does the management team demonstrate a visible and active commitment to innovation, not only by verbally supporting it but also by allocating resources to projects with inherent risk?",
+                  "options": [
+                    "Leadership shows no interest or views innovation as a cost; only projects with a guaranteed return are approved.",
+                    "Leadership supports innovation verbally, but their involvement is limited and they are reluctant to fund risky projects.",
+                    "Leadership actively sponsors innovation, dedicating time and being willing to fund a balanced portfolio of projects, including high-risk initiatives."
+                  ]
+                },
+                {
+                  "index": 16,
+                  "id": "experimentation-and-learning-culture",
+                  "title": "Culture of Experimentation and Learning",
+                  "question": "Is a culture actively promoted where controlled experimentation and 'fast failure' are seen as a learning opportunity, rather than being penalized?",
+                  "options": [
+                    "Experimentation is not allowed; failure is penalized and there is a fear of failing.",
+                    "Experimentation is tolerated in highly controlled environments, but there is no formal process to analyze and learn from mistakes.",
+                    "Experimentation is encouraged and failure is accepted as part of the process, with mechanisms in place to analyze mistakes and share learnings."
+                  ]
+                },
+                {
+                  "index": 17,
+                  "id": "empowerment-and-autonomy",
+                  "title": "Empowerment and Autonomy",
+                  "question": "Are employees empowered and have the autonomy and freedom to propose, explore, and develop new ideas?",
+                  "options": [
+                    "Employees have neither empowerment nor autonomy to innovate.",
+                    "Employees have some empowerment or autonomy, but with significant constraints.",
+                    "Employees are fully empowered and have the autonomy and freedom to propose, explore, and develop new ideas."
+                  ]
+                },
+                {
+                  "index": 18,
+                  "id": "incentives-recognition",
+                  "title": "Incentives and Recognition",
+                  "question": "Are there incentives or recognition for employees who contribute to innovation?",
+                  "options": [
+                    "There are no incentives or recognition for innovation.",
+                    "Recognition is informal and inconsistent.",
+                    "Yes, there is a formal system of incentives and recognition for innovation."
+                  ]
+                },
+                {
+                  "index": 20,
+                  "id": "diversity-inclusion",
+                  "title": "Diversity and Inclusion",
+                  "question": "Is diversity and inclusion valued as a source of innovative ideas and perspectives?",
+                  "options": [
+                    "Diversity and inclusion are not considered important for innovation.",
+                    "Diversity and inclusion are discussed, but not actively promoted in innovation processes.",
+                    "Yes, diversity and inclusion are actively promoted and leveraged for innovation."
+                  ]
+                }
+              ]
+            },
+            "Innovation Resources and Tools": {
+              "description": "Focuses on the allocation of financial, human, and technological resources to support innovation activities.",
+              "icon": "tool",
+              "aspects": [
+                {
+                  "index": 21,
+                  "id": "dedicated-time-for-innovation",
+                  "title": "Dedicated Time for Innovation",
+                  "question": "Does the organization formally allocate and protect time in employees' schedules for them to dedicate to exploration, ideation, and the development of innovation projects?",
+                  "options": [
+                    "No time is allocated; innovation is expected to happen in free time or by overloading daily work.",
+                    "Some flexibility is allowed informally or for specific projects, but it depends on the direct manager's approval and is not a general policy.",
+                    "A formal policy exists (e.g., '20% time', 'innovation days') that allocates and protects time for employees to explore new ideas."
+                  ]
+                },
+                {
+                  "index": 22,
+                  "id": "innovation-management-tools",
+                  "title": "Innovation Management Platforms and Tools",
+                  "question": "Does the organization use specialized technological tools or platforms to support and integrally manage the innovation process (from ideation to project management)?",
+                  "options": [
+                    "Management is manual, using generic office tools (email, spreadsheets).",
+                    "A basic tool is used for part of the process, like an idea or task manager, but without an integrated view.",
+                    "An integrated innovation management platform is used that supports the different stages of the funnel and automates workflows."
+                  ]
+                },
+                {
+                  "index": 23,
+                  "id": "dedicated-budget",
+                  "title": "Dedicated Budget",
+                  "question": "Is there a dedicated and protected budget for innovation activities?",
+                  "options": [
+                    "No dedicated budget for innovation.",
+                    "A budget exists but it is not protected and often reallocated.",
+                    "Yes, there is a dedicated and protected budget for innovation."
+                  ],
+                  "additional_fields": [
+                    {
+                      "id": "innovation_budget",
+                      "label": "Innovation Budget",
+                      "type": "text",
+                      "placeholder": "e.g., 2% of revenue, $500K"
+                    }
+                  ]
+                },
+                {
+                  "index": 24,
+                  "id": "dedicated-personnel",
+                  "title": "Dedicated Personnel",
+                  "question": "Are there dedicated personnel or teams for innovation?",
+                  "options": [
+                    "No dedicated personnel for innovation.",
+                    "Innovation responsibilities are part-time for some employees.",
+                    "Yes, there are dedicated full-time personnel or teams for innovation."
+                  ],
+                  "additional_fields": [
+                    {
+                      "id": "innovation_team_size",
+                      "label": "Innovation Team Size (FTEs)",
+                      "type": "number",
+                      "placeholder": "e.g., 5"
+                    }
+                  ]
+                },
+                {
+                  "index": 25,
+                  "id": "physical-spaces",
+                  "title": "Physical Spaces",
+                  "question": "Are there physical spaces designed to foster collaboration and creativity?",
+                  "options": [
+                    "No specific spaces for innovation.",
+                    "Some multi-purpose spaces can be used for innovation activities.",
+                    "Yes, there are dedicated physical spaces (e.g., innovation labs, project rooms) for innovation."
+                  ]
+                },
+                {
+                  "index": 26,
+                  "id": "access-to-information",
+                  "title": "Access to Information",
+                  "question": "Do employees have easy access to information and data needed for innovation?",
+                  "options": [
+                    "Access to information is difficult and siloed.",
+                    "Access is possible but requires significant effort.",
+                    "Yes, employees have easy access to relevant information and data."
+                  ]
+                },
+                {
+                  "index": 27,
+                  "id": "technology-capabilities",
+                  "title": "Technology Capabilities",
+                  "question": "Does the organization have the necessary technology capabilities to support innovation?",
+                  "options": [
+                    "Technology capabilities are lacking or outdated.",
+                    "Technology capabilities are adequate but not cutting-edge.",
+                    "Yes, the organization has advanced technology capabilities to support innovation."
+                  ]
+                }
+              ]
+            },
+            "Innovation Measurement and Collaboration": {
+              "description": "Looks at how innovation performance is measured and how the organization collaborates with internal and external partners.",
+              "icon": "bar-chart-2",
+              "aspects": [
+                {
+                  "index": 29,
+                  "id": "external-ecosystem-engagement",
+                  "title": "External Ecosystem Collaboration",
+                  "question": "Does the organization actively seek and manage collaboration with external entities (startups, universities, tech centers, suppliers) through strategic alliances and participation in innovation networks?",
+                  "options": [
+                    "The organization operates in isolation, without seeking alliances or participating in external innovation networks.",
+                    "Some ad-hoc collaborations are established or events are attended, but without a proactive open innovation strategy.",
+                    "The organization systematically manages an ecosystem of external partners and actively participates in networks to co-create value and exchange knowledge."
+                  ]
+                },
+                {
+                  "index": 30,
+                  "id": "performance-measurement-system",
+                  "title": "Performance Measurement System",
+                  "question": "Has the organization defined a set of key performance indicators (KPIs) for innovation and does it conduct systematic and regular tracking of them?",
+                  "options": [
+                    "Innovation is not measured specifically.",
+                    "Some basic metrics are used (e.g., number of ideas), but their tracking is irregular and not systematized.",
+                    "Yes, a dashboard with defined KPIs for the entire innovation funnel exists, and periodic tracking is performed for decision-making."
+                  ]
+                },
+                {
+                  "index": 31,
+                  "id": "impact-measurement-and-roi",
+                  "title": "Impact Measurement and ROI",
+                  "question": "Are the business impact of innovation and return on investment systematically measured for all projects?",
+                  "options": [
+                    "Neither ROI nor business impact is systematically measured.",
+                    "Measurement of ROI or business impact occurs, but inconsistently or not for all projects.",
+                    "Yes, both ROI and business impact are systematically measured for all innovation projects."
+                  ],
+                  "additional_fields": [
+                    {
+                      "id": "revenue_impact",
+                      "label": "Revenue from Innovation",
+                      "type": "text",
+                      "placeholder": "e.g., 15% of total revenue, $2M annually"
+                    }
+                  ]
+                },
+                {
+                  "index": 32,
+                  "id": "customer-collaboration-and-feedback",
+                  "title": "Customer Collaboration and Feedback",
+                  "question": "Are customers and end-users actively involved in co-creation and is their feedback systematically integrated to iterate and improve innovations?",
+                  "options": [
+                    "Customers are not involved in co-creation and feedback is not systematically used.",
+                    "Customers provide feedback, but co-creation is limited or feedback integration is sporadic.",
+                    "Yes, customers and end-users are actively involved in co-creation and their feedback is systematically integrated to improve innovations."
+                  ]
+                },
+                {
+                  "index": 33,
+                  "id": "ip-management",
+                  "title": "IP Management",
+                  "question": "Is there a strategy for managing intellectual property (IP) resulting from innovation?",
+                  "options": [
+                    "No IP management strategy.",
+                    "IP is managed on a case-by-case basis.",
+                    "Yes, there is a clear strategy for managing and leveraging IP."
+                  ],
+                  "additional_fields": [
+                    {
+                      "id": "patents_filed",
+                      "label": "Number of Patents Filed (Last 3 Years)",
+                      "type": "number",
+                      "placeholder": "e.g., 5"
+                    }
+                  ]
+                },
+                {
+                  "index": 36,
+                  "id": "benchmarking",
+                  "title": "Benchmarking",
+                  "question": "Does the organization benchmark its innovation performance against competitors or industry standards?",
+                  "options": [
+                    "No benchmarking is performed.",
+                    "Benchmarking is informal and infrequent.",
+                    "Yes, regular benchmarking is performed to identify gaps and opportunities."
+                  ]
+                },
+                {
+                  "index": 37,
+                  "id": "supplier-collaboration",
+                  "title": "Supplier Collaboration",
+                  "question": "Are suppliers involved in the innovation process?",
+                  "options": [
+                    "Suppliers are not involved in innovation.",
+                    "Collaboration with suppliers is limited to transactional relationships.",
+                    "Yes, suppliers are considered strategic partners and are actively involved in the innovation process."
+                  ]
+                }
+              ]
+            }
+          }
+        };
+
+        let currentAnswers = {};
+        let currentInterests = {};
+        let additionalData = {};
+        let results = null;
+        let currentSection = 0;
+        const dimensionNames = Object.keys(IMMQ_SCHEMA.dimensions);
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default assessment date to today
+            document.getElementById('assessmentDate').value = new Date().toISOString().split('T')[0];
+            
+            renderCurrentSection();
+            lucide.createIcons();
+        });
+
+        function renderCurrentSection() {
+            const container = document.getElementById('aspectsContainer');
+            
+            if (currentSection >= dimensionNames.length) {
+                // All sections completed, show final submit button
+                container.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-lg p-6 mt-8 border border-gray-200">
+                        <div class="text-center">
+                            <i data-lucide="check-circle" class="w-16 h-16 mx-auto text-green-600 mb-4"></i>
+                            <h3 class="text-2xl font-bold text-black mb-4">Assessment Complete!</h3>
+                            <p class="text-gray-600 mb-6">You have completed all sections of the Innovation Maturity Assessment.</p>
+                            <button onclick="generateResults()" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg transition duration-200 mr-4">
+                                <i data-lucide="bar-chart-2" class="inline-block w-5 h-5 mr-1"></i> Generate Final Report
+                            </button>
+                            <button onclick="exportQuestionnaireData()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200">
+                                <i data-lucide="download" class="inline-block w-5 h-5 mr-1"></i> Export Data
+                            </button>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const dimension = dimensionNames[currentSection];
+            const dimensionData = IMMQ_SCHEMA.dimensions[dimension];
+            
+            let html = `
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-gray-200">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-black mb-2 flex items-center">
+                            <i data-lucide="${dimensionData.icon}" class="w-7 h-7 mr-3"></i>
+                            ${dimension}
+                        </h3>
+                        <p class="text-gray-600 italic">${dimensionData.description}</p>
+                        <div class="mt-4 bg-gray-100 rounded-full h-2">
+                            <div class="bg-black h-2 rounded-full" style="width: ${((currentSection + 1) / dimensionNames.length) * 100}%"></div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">Section ${currentSection + 1} of ${dimensionNames.length}</p>
+                    </div>
+                    
+                    <div class="space-y-8">
+            `;
+
+            dimensionData.aspects.forEach((aspect, aspectIndex) => {
+                html += `
+                    <div class="border-b border-gray-200 pb-8 last:border-b-0">
+                        <!-- Question Title with Light Gray Background -->
+                        <div class="bg-gray-100 p-3 rounded-lg mb-4 flex items-start">
+                            <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-gray-600 mt-0.5 flex-shrink-0"></i>
+                            <h4 class="text-lg font-semibold text-gray-800">
+                                ${aspect.title}: <span class="font-normal">${aspect.question}</span>
+                            </h4>
+                        </div>
+                        
+                        <!-- Interest Widget (Full Line) -->
+                        <div class="mb-6">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="target" class="w-5 h-5 mr-2 text-gray-600"></i>
+                                <span class="font-medium text-gray-700">Interest</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>meh</span>
+                                    <span>hmmm</span>
+                                    <span>must!</span>
+                                </div>
+                                <input type="range" min="0" max="2" value="1" 
+                                       class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                       id="interest${aspect.index}"
+                                       onchange="updateInterest(${aspect.index}, this.value)">
+                            </div>
+                        </div>
+                        
+                        <!-- Maturity Options (Full Width) -->
+                        <div class="mb-4">
+                            <div class="flex items-center mb-4">
+                                <i data-lucide="trending-up" class="w-5 h-5 mr-2 text-gray-600"></i>
+                                <span class="font-medium text-gray-700">Maturity</span>
+                            </div>
+                            <div class="grid grid-cols-1 gap-3">
+                `;
+
+                aspect.options.forEach((option, optionIndex) => {
+                    const maturityLevel = IMMQ_SCHEMA.metamodel.maturity_levels[optionIndex];
+                    
+                    html += `
+                        <label class="flex items-start space-x-3 p-4 rounded-lg border border-gray-300 hover:bg-gray-50 cursor-pointer transition-colors">
+                            <input type="radio" name="aspect${aspect.index}" value="${optionIndex}" 
+                                   class="mt-1 text-black focus:ring-black" 
+                                   onchange="updateAnswer(${aspect.index}, ${optionIndex})">
+                            <div class="flex-1">
+                                <span class="font-mono font-semibold text-gray-700 mr-3 text-lg">${maturityLevel.label}</span>
+                                <span class="text-gray-800">${option}</span>
+                            </div>
+                        </label>
+                    `;
+                });
+
+                html += `
+                            </div>
+                        </div>
+                `;
+
+                // Additional fields if they exist
+                if (aspect.additional_fields && aspect.additional_fields.length > 0) {
+                    html += `
+                        <div class="mt-6 pt-4 border-t border-gray-200">
+                            <h6 class="font-medium text-gray-700 mb-3 flex items-center">
+                                <i data-lucide="database" class="w-4 h-4 mr-2"></i>
+                                Additional Information (Optional)
+                            </h6>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    `;
+
+                    aspect.additional_fields.forEach(field => {
+                        if (field.type === 'select') {
+                            html += `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">${field.label}</label>
+                                    <select id="additional_${aspect.index}_${field.id}" 
+                                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
+                                            onchange="updateAdditionalData(${aspect.index}, '${field.id}', this.value)">
+                                        <option value="">Select...</option>
+                                        ${field.options ? field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('') : ''}
+                                    </select>
+                                </div>
+                            `;
+                        } else {
+                            html += `
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-600 mb-1">${field.label}</label>
+                                    <input type="${field.type}" 
+                                           id="additional_${aspect.index}_${field.id}"
+                                           placeholder="${field.placeholder || ''}"
+                                           class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
+                                           onchange="updateAdditionalData(${aspect.index}, '${field.id}', this.value)">
+                                </div>
+                            `;
+                        }
+                    });
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    </div>
+                `;
+            });
+
+            // Navigation buttons
+            const isLastSection = currentSection === dimensionNames.length - 1;
+            html += `
+                    </div>
+                    
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+                        <button onclick="previousSection()" 
+                                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-lg transition duration-200 ${currentSection === 0 ? 'invisible' : ''}"
+                                ${currentSection === 0 ? 'disabled' : ''}>
+                            <i data-lucide="chevron-left" class="inline-block w-4 h-4 mr-1"></i> Previous
+                        </button>
+                        
+                        <div class="flex space-x-3">
+                            <button onclick="exportQuestionnaireData()" 
+                                    class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200">
+                                <i data-lucide="download" class="inline-block w-4 h-4 mr-1"></i> Export Data
+                            </button>
+                            
+                            <button onclick="nextSection()" 
+                                    class="bg-black hover:bg-gray-800 text-white font-medium py-2 px-6 rounded-lg transition duration-200">
+                                ${isLastSection ? 
+                                    '<i data-lucide="check" class="inline-block w-4 h-4 mr-1"></i> Complete Assessment' : 
+                                    'Next <i data-lucide="chevron-right" class="inline-block w-4 h-4 ml-1"></i>'
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Initialize interest sliders for current section
+            dimensionData.aspects.forEach(aspect => {
+                if (!currentInterests.hasOwnProperty(aspect.index)) {
+                    currentInterests[aspect.index] = 1; // Default to "hmmm"
+                }
+            });
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+        }
+
+        function nextSection() {
+            currentSection++;
+            renderCurrentSection();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function previousSection() {
+            if (currentSection > 0) {
+                currentSection--;
+                renderCurrentSection();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function updateAnswer(aspectIndex, value) {
+            currentAnswers[aspectIndex] = value;
+            updateProgress();
+        }
+
+        function updateInterest(aspectIndex, value) {
+            currentInterests[aspectIndex] = parseInt(value);
+        }
+
+        function updateAdditionalData(aspectIndex, fieldId, value) {
+            if (!additionalData[aspectIndex]) {
+                additionalData[aspectIndex] = {};
+            }
+            additionalData[aspectIndex][fieldId] = value;
+        }
+
+        function updateProgress() {
+            const totalAspects = IMMQ_SCHEMA.metamodel.scoring.total_aspects;
+            const answeredAspects = Object.keys(currentAnswers).length;
+            const percentage = (answeredAspects / totalAspects) * 100;
+            
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = `${answeredAspects}/${totalAspects} aspects`;
+        }
+
+        function exportQuestionnaireData() {
+            const orgInfo = {
+                name: document.getElementById('orgName').value || '',
+                sector: document.getElementById('orgSector').value || '',
+                size: document.getElementById('orgSize').value || '',
+                scope: document.getElementById('orgScope').value || '',
+                evaluator: document.getElementById('evaluator').value || '',
+                assessment_date: document.getElementById('assessmentDate').value || '',
+                description: document.getElementById('orgDescription').value || ''
+            };
+
+            const exportData = {
+                export_info: {
+                    export_date: new Date().toISOString(),
+                    export_type: "user_data_only"
+                },
+                assessment_schema: IMMQ_SCHEMA,
+                user_data: {
+                    organization_info: orgInfo,
+                    aspect_responses: currentAnswers,
+                    interest_levels: currentInterests,
+                    additional_data: additionalData
+                }
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const orgName = orgInfo.name || 'unnamed_organization';
+            const exportFileDefaultName = `immq_data_${orgName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function generateResults() {
+            const orgInfo = {
+                name: document.getElementById('orgName').value || 'Unnamed Organization',
+                sector: document.getElementById('orgSector').value || 'Not specified',
+                size: document.getElementById('orgSize').value || 'Not specified',
+                scope: document.getElementById('orgScope').value || 'Not specified',
+                evaluator: document.getElementById('evaluator').value || 'Not specified',
+                assessment_date: document.getElementById('assessmentDate').value || new Date().toISOString().split('T')[0],
+                description: document.getElementById('orgDescription').value || 'Not provided',
+                date: new Date().toLocaleDateString('en-US')
+            };
+
+            const totalAspects = IMMQ_SCHEMA.metamodel.scoring.total_aspects;
+            const answeredAspects = Object.keys(currentAnswers).length;
+            const completionPercentage = Math.round((answeredAspects / totalAspects) * 100);
+
+            const dimensionScores = {};
+            
+            dimensionNames.forEach((dimension, index) => {
+                const aspects = IMMQ_SCHEMA.dimensions[dimension].aspects;
+                let totalScore = 0;
+                let answeredInDimension = 0;
+                
+                aspects.forEach(aspect => {
+                    if (currentAnswers.hasOwnProperty(aspect.index)) {
+                        totalScore += parseInt(currentAnswers[aspect.index]);
+                        answeredInDimension++;
+                    }
+                });
+                
+                const maxPossibleScore = answeredInDimension * 2;
+                const percentage = answeredInDimension > 0 ? Math.round((totalScore / maxPossibleScore) * 100) : 0;
+                
+                dimensionScores[dimension] = {
+                    score: totalScore,
+                    maxScore: aspects.length * 2,
+                    answeredAspects: answeredInDimension,
+                    totalAspects: aspects.length,
+                    percentage: percentage
+                };
+            });
+
+            const totalScore = Object.values(dimensionScores).reduce((sum, dim) => sum + dim.score, 0);
+            const maxPossibleTotalScore = answeredAspects * 2;
+            const totalPercentage = answeredAspects > 0 ? Math.round((totalScore / maxPossibleTotalScore) * 100) : 0;
+
+            let maturityLevel, maturityDescription, label;
+            if (totalPercentage < 33) {
+                maturityLevel = 'Very early';
+                maturityDescription = 'Not started or barely begun; needs a lot of work.';
+                label = 'oops...';
+            } else if (totalPercentage < 67) {
+                maturityLevel = 'Intermediate';
+                maturityDescription = 'It works, but still needs polishing.';
+                label = 'kinda';
+            } else {
+                maturityLevel = 'Fully mature';
+                maturityDescription = 'Nailed it; very reliable and complete.';
+                label = 'wow';
+            }
+
+            results = {
+                export_info: {
+                    export_date: new Date().toISOString(),
+                    completion_percentage: completionPercentage,
+                    answered_aspects: answeredAspects,
+                    total_aspects: totalAspects
+                },
+                organization_info: orgInfo,
+                assessment_results: {
+                    total_score: totalScore,
+                    max_possible_score: maxPossibleTotalScore,
+                    total_percentage: totalPercentage,
+                    maturity_level: maturityLevel,
+                    maturity_description: maturityDescription,
+                    label: label,
+                    dimension_scores: dimensionScores
+                },
+                user_responses: {
+                    aspect_answers: currentAnswers,
+                    interest_levels: currentInterests,
+                    additional_data: additionalData
+                },
+                recommendations: generateRecommendations(dimensionScores),
+                priority_matrix_data: generatePriorityMatrixData()
+            };
+
+            displayResults();
+        }
+
+        function generatePriorityMatrixData() {
+            const matrixData = [];
+            
+            Object.entries(IMMQ_SCHEMA.dimensions).forEach(([dimensionName, dimension]) => {
+                dimension.aspects.forEach(aspect => {
+                    if (currentAnswers.hasOwnProperty(aspect.index)) {
+                        const maturityScore = parseInt(currentAnswers[aspect.index]);
+                        const interestScore = currentInterests[aspect.index] || 1;
+                        
+                        let priority = 0;
+                        if (interestScore === 2 && maturityScore === 0) priority = 3;
+                        else if (interestScore === 2 && maturityScore === 1) priority = 2;
+                        else if (interestScore === 1 && maturityScore === 0) priority = 2;
+                        else if (interestScore === 2 && maturityScore === 2) priority = 1;
+                        else if (interestScore === 1 && maturityScore === 1) priority = 1;
+                        else priority = 0;
+                        
+                        const maturityLabel = IMMQ_SCHEMA.metamodel.maturity_levels[maturityScore].label;
+                        const interestLabel = IMMQ_SCHEMA.metamodel.interest_levels[interestScore].label;
+                        
+                        matrixData.push({
+                            index: aspect.index,
+                            id: aspect.id,
+                            title: aspect.title,
+                            dimension: dimensionName,
+                            maturity: maturityScore,
+                            maturity_label: maturityLabel,
+                            interest: interestScore,
+                            interest_label: interestLabel,
+                            priority: priority
+                        });
+                    }
+                });
+            });
+            
+            return matrixData.sort((a, b) => b.priority - a.priority);
+        }
+
+        function generateRecommendations(dimensionScores) {
+            const recommendations = [];
+            
+            Object.entries(dimensionScores).forEach(([dimension, score]) => {
+                if (score.answeredAspects > 0 && score.percentage < 50) {
+                    let recommendation = '';
+                    switch(dimension) {
+                        case 'Strategy and Innovation Vision':
+                            recommendation = 'Develop a formal innovation strategy and communicate it clearly throughout the organization.';
+                            break;
+                        case 'Innovation Process and Methodologies':
+                            recommendation = 'Implement structured processes for idea management and innovative concept development.';
+                            break;
+                        case 'Innovation Culture and Leadership':
+                            recommendation = 'Foster an innovation culture with active leadership and constructive failure tolerance.';
+                            break;
+                        case 'Innovation Resources and Tools':
+                            recommendation = 'Allocate dedicated resources and specialized tools to support innovation activities.';
+                            break;
+                        case 'Innovation Measurement and Collaboration':
+                            recommendation = 'Establish clear metrics and foster internal and external collaboration for innovation.';
+                            break;
+                    }
+                    recommendations.push({
+                        dimension: dimension,
+                        score: score.percentage,
+                        answered_aspects: score.answeredAspects,
+                        recommendation: recommendation
+                    });
+                }
+            });
+
+            return recommendations.sort((a, b) => a.score - b.score);
+        }
+
+        function displayResults() {
+            const completionPercentage = results.export_info.completion_percentage;
+            document.getElementById('completionPercentage').textContent = `${completionPercentage}%`;
+            
+            let completionMessage = '';
+            if (completionPercentage === 100) {
+                completionMessage = 'Complete assessment - all aspects answered.';
+            } else if (completionPercentage >= 80) {
+                completionMessage = 'Nearly complete - results are highly reliable.';
+            } else if (completionPercentage >= 50) {
+                completionMessage = 'Partial assessment - results provide good insights but could be more comprehensive.';
+            } else {
+                completionMessage = 'Limited assessment - consider answering more aspects for better insights.';
+            }
+            document.getElementById('completionMessage').textContent = completionMessage;
+
+            document.getElementById('totalScore').textContent = `${results.assessment_results.total_score}/${results.assessment_results.max_possible_score}`;
+            document.getElementById('maturityLevel').innerHTML = `
+                <span class="font-mono text-2xl">${results.assessment_results.label}</span> ${results.assessment_results.maturity_level}<br>
+                <span class="text-base">${results.assessment_results.maturity_description}</span>
+            `;
+
+            // Show dimension scores
+            const dimensionContainer = document.getElementById('dimensionScores');
+            let dimensionHtml = '';
+
+            Object.entries(results.assessment_results.dimension_scores).forEach(([dimension, score]) => {
+                const shortName = dimension.split(' ').slice(0, 2).join(' ');
+                const colorClass = score.percentage >= 67 ? 'bg-gray-100 border-gray-400' : 
+                                 score.percentage >= 33 ? 'bg-gray-50 border-gray-300' : 
+                                 'bg-white border-gray-200';
+                
+                dimensionHtml += `
+                    <div class="border-l-4 ${colorClass} p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold text-black text-sm mb-2">${shortName}</h4>
+                        <div class="text-2xl font-bold text-gray-700">${score.score}/${score.maxScore}</div>
+                        <div class="text-sm text-gray-600">${score.percentage}%</div>
+                        <div class="text-xs text-gray-500 mt-1">${score.answeredAspects}/${score.totalAspects} aspects</div>
+                    </div>
+                `;
+            });
+            dimensionContainer.innerHTML = dimensionHtml;
+
+            // Show priority matrix
+            displayPriorityMatrix();
+
+            // Show recommendations
+            const recommendationsContainer = document.getElementById('recommendations');
+            if (results.recommendations.length > 0) {
+                let recHtml = '<ul class="space-y-2">';
+                results.recommendations.forEach(rec => {
+                    recHtml += `<li class="flex items-start space-x-2">
+                        <span class="text-gray-400 mt-1">•</span>
+                        <span><strong>${rec.dimension}:</strong> ${rec.recommendation}</span>
+                    </li>`;
+                });
+                recHtml += '</ul>';
+                recommendationsContainer.innerHTML = recHtml;
+            } else {
+                recommendationsContainer.innerHTML = '<p class="text-gray-600">Great job! All evaluated dimensions show good maturity levels.</p>';
+            }
+
+            // Show additional data if exists
+            displayAdditionalData();
+
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function displayPriorityMatrix() {
+            const matrixContainer = document.getElementById('priorityMatrix');
+            const matrixData = results.priority_matrix_data;
+            
+            if (matrixData.length === 0) {
+                matrixContainer.innerHTML = '<p class="text-gray-500 text-center py-4">No data available for priority matrix.</p>';
+                return;
+            }
+
+            // Create matrix table
+            let html = `
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="p-2 text-left">Aspect</th>
+                            <th class="p-2 text-center">Interest</th>
+                            <th class="p-2 text-center">Maturity</th>
+                            <th class="p-2 text-center">Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            matrixData.forEach(item => {
+                const priorityColor = item.priority === 3 ? 'bg-gray-700 text-white' :
+                                    item.priority === 2 ? 'bg-gray-400 text-white' :
+                                    item.priority === 1 ? 'bg-gray-200 text-gray-800' :
+                                    'bg-white text-gray-600';
+                
+                const priorityText = item.priority === 3 ? 'High' :
+                                   item.priority === 2 ? 'Medium' :
+                                   item.priority === 1 ? 'Low' : 'Very Low';
+
+                html += `
+                    <tr class="border-b border-gray-200">
+                        <td class="p-2">
+                            <div class="font-medium">${item.title}</div>
+                            <div class="text-xs text-gray-500">${item.dimension}</div>
+                        </td>
+                        <td class="p-2 text-center">
+                            <span class="font-mono text-sm">${item.interest_label}</span>
+                        </td>
+                        <td class="p-2 text-center">
+                            <span class="font-mono text-sm">${item.maturity_label}</span>
+                        </td>
+                        <td class="p-2 text-center">
+                            <span class="px-2 py-1 rounded text-xs font-medium ${priorityColor}">${priorityText}</span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+            `;
+
+            matrixContainer.innerHTML = html;
+        }
+
+        function displayAdditionalData() {
+            const additionalDataContainer = document.getElementById('additionalDataContainer');
+            const additionalDataSection = document.getElementById('additionalDataSection');
+            
+            if (Object.keys(additionalData).length === 0) {
+                additionalDataSection.classList.add('hidden');
+                return;
+            }
+
+            let html = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+            
+            Object.entries(additionalData).forEach(([aspectIndex, data]) => {
+                const aspect = findAspectByIndex(parseInt(aspectIndex));
+                if (aspect && Object.keys(data).length > 0) {
+                    html += `
+                        <div class="bg-white p-3 rounded border border-gray-200">
+                            <h6 class="font-medium text-gray-800 mb-2">${aspect.title}</h6>
+                            <div class="space-y-1 text-sm">
+                    `;
+                    
+                    Object.entries(data).forEach(([fieldId, value]) => {
+                        if (value && value.trim() !== '') {
+                            const field = aspect.additional_fields?.find(f => f.id === fieldId);
+                            if (field) {
+                                html += `<div><span class="text-gray-600">${field.label}:</span> <span class="font-medium">${value}</span></div>`;
+                            }
+                        }
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += '</div>';
+            additionalDataContainer.innerHTML = html;
+            additionalDataSection.classList.remove('hidden');
+        }
+
+        function findAspectByIndex(index) {
+            for (const dimension of Object.values(IMMQ_SCHEMA.dimensions)) {
+                const aspect = dimension.aspects.find(a => a.index === index);
+                if (aspect) return aspect;
+            }
+            return null;
+        }
+
+        function downloadResults() {
+            if (!results) {
+                alert('No results to download. Please complete the assessment first.');
+                return;
+            }
+
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const orgName = results.organization_info.name || 'unnamed_organization';
+            const fileName = `immq_report_${orgName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', fileName);
+            linkElement.click();
+        }
+    </script>
+</body>
+</html>

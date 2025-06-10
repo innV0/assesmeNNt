@@ -1,0 +1,536 @@
+{
+    "schema_info": {
+        "title": "Innovation Management Maturity Assessment",
+        "version": "3.0.0",
+        "publication_date": "2025-06-10",
+        "description": "A consolidated and streamlined assessment tool for evaluating organizational innovation maturity.",
+        "authors": [
+            "Innovation Management Research Team"
+        ],
+        "license": "MIT"
+    },
+    "metamodel": {
+        "assessment_framework": "Innovation Maturity Model",
+        "methodology": "Interest-Maturity Matrix Assessment",
+        "maturity_levels": {
+            "0": {
+                "name": "Very early",
+                "label": "oops...",
+                "description": "Not started or barely begun; needs a lot of work.",
+                "color": "gray"
+            },
+            "1": {
+                "name": "Intermediate",
+                "label": "kinda",
+                "description": "It works, but still needs polishing.",
+                "color": "gray"
+            },
+            "2": {
+                "name": "Fully mature",
+                "label": "wow",
+                "description": "Nailed it; very reliable and complete.",
+                "color": "gray"
+            }
+        },
+        "interest_levels": {
+            "0": {
+                "name": "Low interest",
+                "label": "meh",
+                "description": "Not a priority at the moment.",
+                "color": "gray"
+            },
+            "1": {
+                "name": "Medium interest",
+                "label": "hmmm",
+                "description": "Interesting, we should consider this.",
+                "color": "gray"
+            },
+            "2": {
+                "name": "High interest",
+                "label": "must!",
+                "description": "Crucial for our strategy, we must act.",
+                "color": "gray"
+            }
+        },
+        "scoring": {
+            "total_dimensions": 5,
+            "total_aspects": 37
+        }
+    },
+    "dimensions": {
+        "dimension_1": {
+            "id": "strategy_vision",
+            "title": "Strategy and Innovation Vision",
+            "description": "Evaluates how innovation is integrated into the corporate strategy, and how this vision is communicated.",
+            "aspects": [
+                {
+                    "index": 1,
+                    "id": "strategy-definition-and-communication",
+                    "title": "Definition and Communication of Innovation Strategy",
+                    "question": "Is there an innovation vision that is formally integrated into the corporate strategy and communicated in a clear, coherent, and systematic way to the entire organization?",
+                    "options": [
+                        "Innovation is a sporadic concept, with no defined vision or formal communication.",
+                        "A general vision or idea exists, but it is not formally integrated into the strategy and its communication is irregular or limited to management.",
+                        "Yes, innovation is an explicit strategic pillar, with a clear vision that is proactively communicated to all levels of the organization."
+                    ]
+                },
+                {
+                    "index": 2,
+                    "id": "goals-alignment",
+                    "title": "Goals Alignment",
+                    "question": "Are innovation goals aligned with overall business objectives?",
+                    "options": [
+                        "Innovation goals are not defined or are disconnected from business objectives.",
+                        "Goals are defined but only partially aligned with business objectives.",
+                        "Yes, innovation goals are fully aligned with and directly support business objectives."
+                    ]
+                },
+                {
+                    "index": 3,
+                    "id": "market-trends",
+                    "title": "Market Trends Analysis",
+                    "question": "Does the organization systematically analyze market and technology trends to identify opportunities?",
+                    "options": [
+                        "Market and technology trends are not systematically analyzed.",
+                        "Analysis is performed ad-hoc or informally.",
+                        "Yes, there is a systematic process for monitoring and analyzing trends to inform strategy."
+                    ]
+                },
+                {
+                    "index": 4,
+                    "id": "strategic-owner",
+                    "title": "Strategic Owner",
+                    "question": "Is a responsible person or formal team assigned for defining and monitoring innovation strategy?",
+                    "options": [
+                        "No one is formally responsible for innovation strategy.",
+                        "Responsibility is ambiguous or shared informally.",
+                        "Yes, there is a clear owner (e.g., Chief Innovation Officer, Innovation Committee) for the innovation strategy."
+                    ]
+                },
+                {
+                    "index": 5,
+                    "id": "portfolio-management",
+                    "title": "Innovation Portfolio Management",
+                    "question": "Is there a balanced portfolio of innovation projects (incremental, radical)?",
+                    "options": [
+                        "No portfolio management; projects are ad-hoc.",
+                        "A portfolio exists but is not balanced (e.g., only incremental innovation).",
+                        "Yes, a balanced portfolio is actively managed to align with strategic goals."
+                    ]
+                },
+                {
+                    "index": 6,
+                    "id": "long-term-orientation",
+                    "title": "Long-term Orientation",
+                    "question": "Does the innovation strategy have a long-term orientation?",
+                    "options": [
+                        "The focus is only on short-term needs.",
+                        "There is some long-term consideration, but it is not a primary focus.",
+                        "Yes, the strategy balances short-term needs with a long-term vision."
+                    ]
+                },
+                {
+                    "index": 7,
+                    "id": "resource-allocation",
+                    "title": "Resource Allocation",
+                    "question": "Is resource allocation for innovation aligned with strategic priorities?",
+                    "options": [
+                        "Resource allocation is not aligned with strategic priorities.",
+                        "Allocation is partially aligned but often diverted to other areas.",
+                        "Yes, resource allocation is directly tied to and protected for strategic innovation priorities."
+                    ]
+                }
+            ]
+        },
+        "dimension_2": {
+            "id": "process_methodologies",
+            "title": "Innovation Process and Methodologies",
+            "description": "Examines the formal and informal processes, methodologies, and governance for managing innovation.",
+            "aspects": [
+                {
+                    "index": 8,
+                    "id": "formalized-innovation-process",
+                    "title": "Formalized Innovation Management Process",
+                    "question": "Does the organization have a formal, structured process (e.g., funnel or stage-gate) to manage the lifecycle of ideas, from their generation and evaluation to the decision-making for their development?",
+                    "options": [
+                        "Ideas are managed informally and unstructured; decisions are made without clear criteria.",
+                        "Parts of a process exist (e.g., an idea box or basic prototyping), but it is not integrated or governed by formal phases and criteria.",
+                        "Yes, a formal, documented process with clear phases and criteria (decision gates) exists to manage the flow of innovation projects."
+                    ]
+                },
+                {
+                    "index": 9,
+                    "id": "methodologies-adoption",
+                    "title": "Methodologies Adoption",
+                    "question": "Are innovation methodologies (e.g., Design Thinking, Lean Startup, Agile) actively used?",
+                    "options": [
+                        "No specific innovation methodologies are used.",
+                        "Methodologies are used sporadically or by a few individuals.",
+                        "Yes, specific methodologies are systematically used and adapted to the organization's needs."
+                    ]
+                },
+                {
+                    "index": 10,
+                    "id": "prototyping-testing",
+                    "title": "Prototyping and Testing",
+                    "question": "Is there a systematic approach to prototyping and testing ideas with users?",
+                    "options": [
+                        "Prototyping and testing are not standard practices.",
+                        "Prototyping and testing are done, but not systematically.",
+                        "Yes, there is a systematic and agile approach to creating and testing prototypes."
+                    ]
+                },
+                {
+                    "index": 11,
+                    "id": "project-management",
+                    "title": "Innovation Project Management",
+                    "question": "Are innovation projects managed with appropriate methodologies?",
+                    "options": [
+                        "Innovation projects are not managed with specific methodologies.",
+                        "Traditional project management methodologies are used for all projects.",
+                        "Yes, agile or specific innovation project management methodologies are used."
+                    ]
+                },
+                {
+                    "index": 12,
+                    "id": "knowledge-management",
+                    "title": "Knowledge Management",
+                    "question": "Is knowledge from innovation projects systematically captured and shared?",
+                    "options": [
+                        "Knowledge from projects is not captured or shared.",
+                        "Knowledge is captured, but not systematically shared.",
+                        "Yes, there is a system for capturing, storing, and sharing knowledge and lessons learned."
+                    ]
+                }
+            ]
+        },
+        "dimension_3": {
+            "id": "culture_leadership",
+            "title": "Innovation Culture and Leadership",
+            "description": "Assesses the organizational mindset, leadership support, and cultural norms that foster or hinder innovation.",
+            "aspects": [
+                {
+                    "index": 13,
+                    "id": "internal-collaboration-culture",
+                    "title": "Internal Collaboration Culture",
+                    "question": "How does the organization promote an active culture of collaboration and the creation of multidisciplinary teams across different areas or departments?",
+                    "options": [
+                        "Departments work in silos; collaboration is scarce or non-existent.",
+                        "Occasional meetings or projects are promoted, but collaboration is not systematic and depends on individual initiatives.",
+                        "Interdepartmental collaboration is a standard practice, actively fostered with multidisciplinary teams and collaborative platforms."
+                    ]
+                },
+                {
+                    "index": 14,
+                    "id": "innovation-skills-training",
+                    "title": "Skills Training and Development",
+                    "question": "Does the organization invest in a planned way in developing its employees' competencies in innovation (e.g., methodologies like Design Thinking, management tools, creativity, etc.)?",
+                    "options": [
+                        "There is no specific training plan for innovation.",
+                        "Courses are offered sporadically or reactively when a project requires it, but without a structured program.",
+                        "A continuous and strategic training program exists to develop innovation skills at all levels of the organization."
+                    ]
+                },
+                {
+                    "index": 15,
+                    "id": "leadership-commitment-sponsorship",
+                    "title": "Leadership Commitment and Sponsorship",
+                    "question": "Does the management team demonstrate a visible and active commitment to innovation, not only by verbally supporting it but also by allocating resources to projects with inherent risk?",
+                    "options": [
+                        "Leadership shows no interest or views innovation as a cost; only projects with a guaranteed return are approved.",
+                        "Leadership supports innovation verbally, but their involvement is limited and they are reluctant to fund risky projects.",
+                        "Leadership actively sponsors innovation, dedicating time and being willing to fund a balanced portfolio of projects, including high-risk initiatives."
+                    ]
+                },
+                {
+                    "index": 16,
+                    "id": "experimentation-and-learning-culture",
+                    "title": "Culture of Experimentation and Learning",
+                    "question": "Is a culture actively promoted where controlled experimentation and 'fast failure' are seen as a learning opportunity, rather than being penalized?",
+                    "options": [
+                        "Experimentation is not allowed; failure is penalized and there is a fear of failing.",
+                        "Experimentation is tolerated in highly controlled environments, but there is no formal process to analyze and learn from mistakes.",
+                        "Experimentation is encouraged and failure is accepted as part of the process, with mechanisms in place to analyze mistakes and share learnings."
+                    ]
+                },
+                {
+                    "index": 17,
+                    "id": "employee-empowerment",
+                    "title": "Employee Empowerment",
+                    "question": "Are employees empowered to propose and develop new ideas?",
+                    "options": [
+                        "Employees are not empowered to propose ideas.",
+                        "Employees can propose ideas, but have no autonomy to develop them.",
+                        "Yes, employees are empowered and encouraged to propose and develop new ideas."
+                    ]
+                },
+                {
+                    "index": 18,
+                    "id": "incentives-recognition",
+                    "title": "Incentives and Recognition",
+                    "question": "Are there incentives or recognition for employees who contribute to innovation?",
+                    "options": [
+                        "There are no incentives or recognition for innovation.",
+                        "Recognition is informal and inconsistent.",
+                        "Yes, there is a formal system of incentives and recognition for innovation."
+                    ]
+                },
+                {
+                    "index": 19,
+                    "id": "autonomy-freedom",
+                    "title": "Autonomy and Freedom",
+                    "question": "Do employees have the autonomy and freedom to explore new ideas and approaches?",
+                    "options": [
+                        "There is little to no autonomy for employees.",
+                        "Autonomy is limited and requires multiple levels of approval.",
+                        "Yes, employees have a high degree of autonomy to explore and innovate."
+                    ]
+                },
+                {
+                    "index": 20,
+                    "id": "diversity-inclusion",
+                    "title": "Diversity and Inclusion",
+                    "question": "Is diversity and inclusion valued as a source of innovative ideas and perspectives?",
+                    "options": [
+                        "Diversity and inclusion are not considered important for innovation.",
+                        "Diversity and inclusion are discussed, but not actively promoted in innovation processes.",
+                        "Yes, diversity and inclusion are actively promoted and leveraged for innovation."
+                    ]
+                }
+            ]
+        },
+        "dimension_4": {
+            "id": "resources_tools",
+            "title": "Innovation Resources and Tools",
+            "description": "Focuses on the allocation of financial, human, and technological resources to support innovation activities.",
+            "aspects": [
+                {
+                    "index": 21,
+                    "id": "dedicated-time-for-innovation",
+                    "title": "Dedicated Time for Innovation",
+                    "question": "Does the organization formally allocate and protect time in employees' schedules for them to dedicate to exploration, ideation, and the development of innovation projects?",
+                    "options": [
+                        "No time is allocated; innovation is expected to happen in free time or by overloading daily work.",
+                        "Some flexibility is allowed informally or for specific projects, but it depends on the direct manager's approval and is not a general policy.",
+                        "A formal policy exists (e.g., '20% time', 'innovation days') that allocates and protects time for employees to explore new ideas."
+                    ]
+                },
+                {
+                    "index": 22,
+                    "id": "innovation-management-tools",
+                    "title": "Innovation Management Platforms and Tools",
+                    "question": "Does the organization use specialized technological tools or platforms to support and integrally manage the innovation process (from ideation to project management)?",
+                    "options": [
+                        "Management is manual, using generic office tools (email, spreadsheets).",
+                        "A basic tool is used for part of the process, like an idea or task manager, but without an integrated view.",
+                        "An integrated innovation management platform is used that supports the different stages of the funnel and automates workflows."
+                    ]
+                },
+                {
+                    "index": 23,
+                    "id": "dedicated-budget",
+                    "title": "Dedicated Budget",
+                    "question": "Is there a dedicated and protected budget for innovation activities?",
+                    "options": [
+                        "No dedicated budget for innovation.",
+                        "A budget exists but it is not protected and often reallocated.",
+                        "Yes, there is a dedicated and protected budget for innovation."
+                    ],
+                    "additional_fields": [
+                        {
+                            "id": "innovation_budget",
+                            "label": "Innovation Budget",
+                            "type": "text",
+                            "placeholder": "e.g., 2% of revenue, $500K"
+                        }
+                    ]
+                },
+                {
+                    "index": 24,
+                    "id": "dedicated-personnel",
+                    "title": "Dedicated Personnel",
+                    "question": "Are there dedicated personnel or teams for innovation?",
+                    "options": [
+                        "No dedicated personnel for innovation.",
+                        "Innovation responsibilities are part-time for some employees.",
+                        "Yes, there are dedicated full-time personnel or teams for innovation."
+                    ],
+                    "additional_fields": [
+                        {
+                            "id": "innovation_team_size",
+                            "label": "Innovation Team Size (FTEs)",
+                            "type": "number",
+                            "placeholder": "e.g., 5"
+                        }
+                    ]
+                },
+                {
+                    "index": 25,
+                    "id": "physical-spaces",
+                    "title": "Physical Spaces",
+                    "question": "Are there physical spaces designed to foster collaboration and creativity?",
+                    "options": [
+                        "No specific spaces for innovation.",
+                        "Some multi-purpose spaces can be used for innovation activities.",
+                        "Yes, there are dedicated physical spaces (e.g., innovation labs, project rooms) for innovation."
+                    ]
+                },
+                {
+                    "index": 26,
+                    "id": "access-to-information",
+                    "title": "Access to Information",
+                    "question": "Do employees have easy access to information and data needed for innovation?",
+                    "options": [
+                        "Access to information is difficult and siloed.",
+                        "Access is possible but requires significant effort.",
+                        "Yes, employees have easy access to relevant information and data."
+                    ]
+                },
+                {
+                    "index": 27,
+                    "id": "technology-capabilities",
+                    "title": "Technology Capabilities",
+                    "question": "Does the organization have the necessary technology capabilities to support innovation?",
+                    "options": [
+                        "Technology capabilities are lacking or outdated.",
+                        "Technology capabilities are adequate but not cutting-edge.",
+                        "Yes, the organization has advanced technology capabilities to support innovation."
+                    ]
+                },
+                {
+                    "index": 28,
+                    "id": "resource-evaluation",
+                    "title": "Resource Evaluation",
+                    "question": "Are the resources allocated to innovation evaluated for their effectiveness?",
+                    "options": [
+                        "Resource effectiveness is not evaluated.",
+                        "Evaluation is informal and infrequent.",
+                        "Yes, there is a regular process to evaluate the effectiveness of resources allocated to innovation."
+                    ]
+                }
+            ]
+        },
+        "dimension_5": {
+            "id": "measurement_collaboration",
+            "title": "Innovation Measurement and Collaboration",
+            "description": "Looks at how innovation performance is measured and how the organization collaborates with internal and external partners.",
+            "aspects": [
+                {
+                    "index": 29,
+                    "id": "external-ecosystem-engagement",
+                    "title": "External Ecosystem Collaboration",
+                    "question": "Does the organization actively seek and manage collaboration with external entities (startups, universities, tech centers, suppliers) through strategic alliances and participation in innovation networks?",
+                    "options": [
+                        "The organization operates in isolation, without seeking alliances or participating in external innovation networks.",
+                        "Some ad-hoc collaborations are established or events are attended, but without a proactive open innovation strategy.",
+                        "The organization systematically manages an ecosystem of external partners and actively participates in networks to co-create value and exchange knowledge."
+                    ]
+                },
+                {
+                    "index": 30,
+                    "id": "performance-measurement-system",
+                    "title": "Performance Measurement System",
+                    "question": "Has the organization defined a set of key performance indicators (KPIs) for innovation and does it conduct systematic and regular tracking of them?",
+                    "options": [
+                        "Innovation is not measured specifically.",
+                        "Some basic metrics are used (e.g., number of ideas), but their tracking is irregular and not systematized.",
+                        "Yes, a dashboard with defined KPIs for the entire innovation funnel exists, and periodic tracking is performed for decision-making."
+                    ]
+                },
+                {
+                    "index": 31,
+                    "id": "roi-calculation",
+                    "title": "ROI Calculation",
+                    "question": "Is the return on investment (ROI) of innovation projects calculated?",
+                    "options": [
+                        "ROI is not calculated for innovation projects.",
+                        "ROI is calculated for some, but not all, projects.",
+                        "Yes, ROI is systematically calculated for all innovation projects."
+                    ]
+                },
+                {
+                    "index": 32,
+                    "id": "customer-co-creation",
+                    "title": "Customer Co-creation",
+                    "question": "Are customers involved in the co-creation of new products and services?",
+                    "options": [
+                        "Customers are not involved in the innovation process.",
+                        "Customer feedback is collected, but they are not actively involved in co-creation.",
+                        "Yes, customers are actively involved in the co-creation process."
+                    ]
+                },
+                {
+                    "index": 33,
+                    "id": "ip-management",
+                    "title": "IP Management",
+                    "question": "Is there a strategy for managing intellectual property (IP) resulting from innovation?",
+                    "options": [
+                        "No IP management strategy.",
+                        "IP is managed on a case-by-case basis.",
+                        "Yes, there is a clear strategy for managing and leveraging IP."
+                    ],
+                    "additional_fields": [
+                        {
+                            "id": "patents_filed",
+                            "label": "Number of Patents Filed (Last 3 Years)",
+                            "type": "number",
+                            "placeholder": "e.g., 5"
+                        }
+                    ]
+                },
+                {
+                    "index": 34,
+                    "id": "business-impact",
+                    "title": "Business Impact",
+                    "question": "Is innovation's impact on business results measured?",
+                    "options": [
+                        "Innovation's impact on business results is not measured.",
+                        "Impact attempted to be measured in some projects, but inconsistently.",
+                        "Yes, innovation impact systematically measured on key business results (e.g. revenue, market share, costs, CX)."
+                    ],
+                    "additional_fields": [
+                        {
+                            "id": "revenue_impact",
+                            "label": "Revenue from Innovation",
+                            "type": "text",
+                            "placeholder": "e.g., 15% of total revenue, $2M annually"
+                        }
+                    ]
+                },
+                {
+                    "index": 35,
+                    "id": "user-feedback",
+                    "title": "User Feedback",
+                    "question": "Is user feedback used to iterate and improve innovations?",
+                    "options": [
+                        "Feedback not collected or not used to improve.",
+                        "Feedback collected, but implementation is sporadic.",
+                        "Yes, customer and end-user feedback systematically integrated into innovation lifecycle to iterate and improve."
+                    ]
+                },
+                {
+                    "index": 36,
+                    "id": "benchmarking",
+                    "title": "Benchmarking",
+                    "question": "Does the organization benchmark its innovation performance against competitors or industry standards?",
+                    "options": [
+                        "No benchmarking is performed.",
+                        "Benchmarking is informal and infrequent.",
+                        "Yes, regular benchmarking is performed to identify gaps and opportunities."
+                    ]
+                },
+                {
+                    "index": 37,
+                    "id": "supplier-collaboration",
+                    "title": "Supplier Collaboration",
+                    "question": "Are suppliers involved in the innovation process?",
+                    "options": [
+                        "Suppliers are not involved in innovation.",
+                        "Collaboration with suppliers is limited to transactional relationships.",
+                        "Yes, suppliers are considered strategic partners and are actively involved in the innovation process."
+                    ]
+                }
+            ]
+        }
+    }
+}
