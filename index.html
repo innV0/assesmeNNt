@@ -35,6 +35,70 @@
             cursor: pointer;
             border: none;
         }
+
+        /* Priority Matrix Grid Styles */
+        .priority-matrix-grid {
+            display: grid;
+            grid-template-columns: auto 1fr 1fr 1fr; /* Label column + 3 maturity columns */
+            grid-template-rows: auto 1fr 1fr 1fr; /* Label row + 3 interest rows */
+            gap: 1px;
+            background-color: #e5e7eb; /* Tailwind gray-200 */
+            border: 1px solid #d1d5db; /* Tailwind gray-300 */
+            margin-top: 1rem;
+        }
+        .matrix-cell, .matrix-label {
+            background-color: white;
+            padding: 0.75rem; /* p-3 */
+            text-align: center;
+            min-height: 80px; /* Ensure cells have a minimum height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Align items to the top */
+            overflow: hidden; /* Hide overflow, aspects will scroll if too many */
+        }
+        .matrix-label {
+            font-weight: 600; /* semibold */
+            background-color: #f9fafb; /* Tailwind gray-50 */
+            position: sticky;
+            z-index: 10;
+        }
+        .matrix-label.maturity-label {
+            top: 0; /* Sticky for horizontal (maturity) labels */
+        }
+        .matrix-label.interest-label {
+            left: 0; /* Sticky for vertical (interest) labels */
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            justify-content: center; /* Center rotated text */
+        }
+        .matrix-cell-content {
+            width: 100%;
+            max-height: 120px; /* Limit height to allow scrolling */
+            overflow-y: auto; /* Enable vertical scroll for aspects */
+            padding-right: 8px; /* Space for scrollbar */
+        }
+
+        .aspect-item {
+            font-size: 0.75rem; /* text-xs */
+            padding: 0.25rem 0.5rem; /* py-1 px-2 */
+            margin-bottom: 0.25rem; /* mb-1 */
+            border-radius: 0.25rem; /* rounded-sm */
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: default; /* Indicate it's not clickable, but has a tooltip */
+        }
+        .aspect-item-title {
+            display: block;
+        }
+        .aspect-priority-high { background-color: #374151; color: white; } /* gray-700 */
+        .aspect-priority-medium { background-color: #9ca3af; color: white; } /* gray-400 */
+        .aspect-priority-low { background-color: #e5e7eb; color: #1f2937; } /* gray-200, text-gray-800 */
+        .aspect-priority-very-low { background-color: #f9fafb; color: #374151; } /* gray-50, text-gray-700 */
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen pt-32">
@@ -252,6 +316,10 @@
                             <div class="flex items-center space-x-2">
                                 <div class="w-4 h-4 bg-gray-700 border border-gray-300"></div>
                                 <span>High Priority</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-gray-50 border border-gray-300"></div> <!-- Corresponds to aspect-priority-very-low -->
+                                <span>Very Low Priority</span>
                             </div>
                         </div>
                     </div>
@@ -824,15 +892,12 @@
             let html = `
                 <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-gray-200">
                     <div class="mb-6">
+                        <p class="text-sm text-gray-500 mb-1">Step ${currentSection + 1} of ${dimensionNames.length}</p>
                         <h3 class="text-2xl font-bold text-black mb-2 flex items-center">
                             <i data-lucide="${dimensionData.icon}" class="w-7 h-7 mr-3"></i>
                             ${dimension}
                         </h3>
                         <p class="text-gray-600 italic">${dimensionData.description}</p>
-                        <div class="mt-4 bg-gray-100 rounded-full h-2">
-                            <div class="bg-black h-2 rounded-full" style="width: ${((currentSection + 1) / dimensionNames.length) * 100}%"></div>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-2">Section ${currentSection + 1} of ${dimensionNames.length}</p>
                     </div>
                     
                     <div class="space-y-8">
@@ -1267,6 +1332,9 @@
                         <h4 class="font-semibold text-black text-sm mb-2">${shortName}</h4>
                         <div class="text-2xl font-bold text-gray-700">${score.score}/${score.maxScore}</div>
                         <div class="text-sm text-gray-600">${score.percentage}%</div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2 mb-1">
+                            <div class="bg-black h-2.5 rounded-full" style="width: ${score.percentage}%"></div>
+                        </div>
                         <div class="text-xs text-gray-500 mt-1">${score.answeredAspects}/${score.totalAspects} aspects</div>
                     </div>
                 `;
@@ -1308,55 +1376,54 @@
                 return;
             }
 
-            // Create matrix table
-            let html = `
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="p-2 text-left">Aspect</th>
-                            <th class="p-2 text-center">Interest</th>
-                            <th class="p-2 text-center">Maturity</th>
-                            <th class="p-2 text-center">Priority</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+            // Define the order of labels for the grid
+            const interestOrder = ["must!", "hmmm", "meh"]; // High to Low
+            const maturityOrder = ["oops...", "kinda", "wow"]; // Low to High
 
-            matrixData.forEach(item => {
-                const priorityColor = item.priority === 3 ? 'bg-gray-700 text-white' :
-                                    item.priority === 2 ? 'bg-gray-400 text-white' :
-                                    item.priority === 1 ? 'bg-gray-200 text-gray-800' :
-                                    'bg-white text-gray-600';
-                
-                const priorityText = item.priority === 3 ? 'High' :
-                                   item.priority === 2 ? 'Medium' :
-                                   item.priority === 1 ? 'Low' : 'Very Low';
+            // Create the grid structure
+            let html = '<div class="priority-matrix-grid">';
 
-                html += `
-                    <tr class="border-b border-gray-200">
-                        <td class="p-2">
-                            <div class="font-medium">${item.title}</div>
-                            <div class="text-xs text-gray-500">${item.dimension}</div>
-                        </td>
-                        <td class="p-2 text-center">
-                            <span class="font-mono text-sm">${item.interest_label}</span>
-                        </td>
-                        <td class="p-2 text-center">
-                            <span class="font-mono text-sm">${item.maturity_label}</span>
-                        </td>
-                        <td class="p-2 text-center">
-                            <span class="px-2 py-1 rounded text-xs font-medium ${priorityColor}">${priorityText}</span>
-                        </td>
-                    </tr>
-                `;
+            // Add top-left empty cell (for spacing) and maturity labels
+            html += '<div class="matrix-label"></div>'; // Top-left empty cell
+            maturityOrder.forEach(label => {
+                html += `<div class="matrix-label maturity-label">${label}</div>`;
             });
 
-            html += `
-                    </tbody>
-                </table>
-            `;
-
+            // Create rows for each interest level
+            interestOrder.forEach(interestLabel => {
+                html += `<div class="matrix-label interest-label">${interestLabel}</div>`; // Interest label cell
+                maturityOrder.forEach(maturityLabel => {
+                    html += `<div class="matrix-cell" data-interest="${interestLabel}" data-maturity="${maturityLabel}">
+                                <div class="matrix-cell-content"></div>
+                             </div>`;
+                });
+            });
+            html += '</div>';
             matrixContainer.innerHTML = html;
+
+            // Populate the grid with aspect items
+            matrixData.forEach(item => {
+                const cellSelector = `.matrix-cell[data-interest="${item.interest_label}"][data-maturity="${item.maturity_label}"] .matrix-cell-content`;
+                const cellContentDiv = matrixContainer.querySelector(cellSelector);
+
+                if (cellContentDiv) {
+                    let priorityClass = 'aspect-priority-very-low';
+                    if (item.priority === 3) priorityClass = 'aspect-priority-high';
+                    else if (item.priority === 2) priorityClass = 'aspect-priority-medium';
+                    else if (item.priority === 1) priorityClass = 'aspect-priority-low';
+
+                    const aspectDiv = document.createElement('div');
+                    aspectDiv.className = `aspect-item ${priorityClass}`;
+                    aspectDiv.title = `${item.title} (Dimension: ${item.dimension})\nInterest: ${item.interest_label}, Maturity: ${item.maturity_label}`;
+
+                    const titleSpan = document.createElement('span');
+                    titleSpan.className = 'aspect-item-title';
+                    titleSpan.textContent = item.title;
+                    aspectDiv.appendChild(titleSpan);
+
+                    cellContentDiv.appendChild(aspectDiv);
+                }
+            });
         }
 
         function displayAdditionalData() {
