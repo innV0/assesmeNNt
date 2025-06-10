@@ -1,13 +1,13 @@
 {
     "schema_info": {
         "title": "Innovation Management Maturity Assessment",
-        "version": "3.0.0",
+        "version": "4.0.0",
         "publication_date": "2025-06-10",
-        "description": "A consolidated and streamlined assessment tool for evaluating organizational innovation maturity.",
+        "description": "A pragmatic and streamlined assessment tool for evaluating core organizational innovation maturity.",
         "authors": [
             "Innovation Management Research Team"
         ],
-        "license": "MIT"
+        "license": "TBD"
     },
     "metamodel": {
         "assessment_framework": "Innovation Maturity Model",
@@ -54,7 +54,7 @@
         },
         "scoring": {
             "total_dimensions": 5,
-            "total_aspects": 37
+            "total_aspects": 33
         }
     },
     "dimensions": {
@@ -335,14 +335,6 @@
                         "No dedicated budget for innovation.",
                         "A budget exists but it is not protected and often reallocated.",
                         "Yes, there is a dedicated and protected budget for innovation."
-                    ],
-                    "additional_fields": [
-                        {
-                            "id": "innovation_budget",
-                            "label": "Innovation Budget",
-                            "type": "text",
-                            "placeholder": "e.g., 2% of revenue, $500K"
-                        }
                     ]
                 },
                 {
@@ -354,29 +346,10 @@
                         "No dedicated personnel for innovation.",
                         "Innovation responsibilities are part-time for some employees.",
                         "Yes, there are dedicated full-time personnel or teams for innovation."
-                    ],
-                    "additional_fields": [
-                        {
-                            "id": "innovation_team_size",
-                            "label": "Innovation Team Size (FTEs)",
-                            "type": "number",
-                            "placeholder": "e.g., 5"
-                        }
                     ]
                 },
                 {
                     "index": 25,
-                    "id": "physical-spaces",
-                    "title": "Physical Spaces",
-                    "question": "Are there physical spaces designed to foster collaboration and creativity?",
-                    "options": [
-                        "No specific spaces for innovation.",
-                        "Some multi-purpose spaces can be used for innovation activities.",
-                        "Yes, there are dedicated physical spaces (e.g., innovation labs, project rooms) for innovation."
-                    ]
-                },
-                {
-                    "index": 26,
                     "id": "access-to-information",
                     "title": "Access to Information",
                     "question": "Do employees have easy access to information and data needed for innovation?",
@@ -387,7 +360,7 @@
                     ]
                 },
                 {
-                    "index": 27,
+                    "index": 26,
                     "id": "technology-capabilities",
                     "title": "Technology Capabilities",
                     "question": "Does the organization have the necessary technology capabilities to support innovation?",
@@ -398,7 +371,7 @@
                     ]
                 },
                 {
-                    "index": 28,
+                    "index": 27,
                     "id": "resource-evaluation",
                     "title": "Resource Evaluation",
                     "question": "Are the resources allocated to innovation evaluated for their effectiveness?",
@@ -416,18 +389,7 @@
             "description": "Looks at how innovation performance is measured and how the organization collaborates with internal and external partners.",
             "aspects": [
                 {
-                    "index": 29,
-                    "id": "external-ecosystem-engagement",
-                    "title": "External Ecosystem Collaboration",
-                    "question": "Does the organization actively seek and manage collaboration with external entities (startups, universities, tech centers, suppliers) through strategic alliances and participation in innovation networks?",
-                    "options": [
-                        "The organization operates in isolation, without seeking alliances or participating in external innovation networks.",
-                        "Some ad-hoc collaborations are established or events are attended, but without a proactive open innovation strategy.",
-                        "The organization systematically manages an ecosystem of external partners and actively participates in networks to co-create value and exchange knowledge."
-                    ]
-                },
-                {
-                    "index": 30,
+                    "index": 28,
                     "id": "performance-measurement-system",
                     "title": "Performance Measurement System",
                     "question": "Has the organization defined a set of key performance indicators (KPIs) for innovation and does it conduct systematic and regular tracking of them?",
@@ -438,7 +400,7 @@
                     ]
                 },
                 {
-                    "index": 31,
+                    "index": 29,
                     "id": "roi-calculation",
                     "title": "ROI Calculation",
                     "question": "Is the return on investment (ROI) of innovation projects calculated?",
@@ -449,37 +411,7 @@
                     ]
                 },
                 {
-                    "index": 32,
-                    "id": "customer-co-creation",
-                    "title": "Customer Co-creation",
-                    "question": "Are customers involved in the co-creation of new products and services?",
-                    "options": [
-                        "Customers are not involved in the innovation process.",
-                        "Customer feedback is collected, but they are not actively involved in co-creation.",
-                        "Yes, customers are actively involved in the co-creation process."
-                    ]
-                },
-                {
-                    "index": 33,
-                    "id": "ip-management",
-                    "title": "IP Management",
-                    "question": "Is there a strategy for managing intellectual property (IP) resulting from innovation?",
-                    "options": [
-                        "No IP management strategy.",
-                        "IP is managed on a case-by-case basis.",
-                        "Yes, there is a clear strategy for managing and leveraging IP."
-                    ],
-                    "additional_fields": [
-                        {
-                            "id": "patents_filed",
-                            "label": "Number of Patents Filed (Last 3 Years)",
-                            "type": "number",
-                            "placeholder": "e.g., 5"
-                        }
-                    ]
-                },
-                {
-                    "index": 34,
+                    "index": 30,
                     "id": "business-impact",
                     "title": "Business Impact",
                     "question": "Is innovation's impact on business results measured?",
@@ -487,29 +419,10 @@
                         "Innovation's impact on business results is not measured.",
                         "Impact attempted to be measured in some projects, but inconsistently.",
                         "Yes, innovation impact systematically measured on key business results (e.g. revenue, market share, costs, CX)."
-                    ],
-                    "additional_fields": [
-                        {
-                            "id": "revenue_impact",
-                            "label": "Revenue from Innovation",
-                            "type": "text",
-                            "placeholder": "e.g., 15% of total revenue, $2M annually"
-                        }
                     ]
                 },
                 {
-                    "index": 35,
-                    "id": "user-feedback",
-                    "title": "User Feedback",
-                    "question": "Is user feedback used to iterate and improve innovations?",
-                    "options": [
-                        "Feedback not collected or not used to improve.",
-                        "Feedback collected, but implementation is sporadic.",
-                        "Yes, customer and end-user feedback systematically integrated into innovation lifecycle to iterate and improve."
-                    ]
-                },
-                {
-                    "index": 36,
+                    "index": 31,
                     "id": "benchmarking",
                     "title": "Benchmarking",
                     "question": "Does the organization benchmark its innovation performance against competitors or industry standards?",
@@ -520,14 +433,25 @@
                     ]
                 },
                 {
-                    "index": 37,
-                    "id": "supplier-collaboration",
-                    "title": "Supplier Collaboration",
-                    "question": "Are suppliers involved in the innovation process?",
+                    "index": 32,
+                    "id": "external-ecosystem-engagement",
+                    "title": "External Ecosystem Collaboration",
+                    "question": "Does the organization actively seek and manage collaboration with external entities (startups, universities, tech centers, suppliers) through strategic alliances and participation in innovation networks?",
                     "options": [
-                        "Suppliers are not involved in innovation.",
-                        "Collaboration with suppliers is limited to transactional relationships.",
-                        "Yes, suppliers are considered strategic partners and are actively involved in the innovation process."
+                        "The organization operates in isolation, without seeking alliances or participating in external innovation networks.",
+                        "Some ad-hoc collaborations are established or events are attended, but without a proactive open innovation strategy.",
+                        "The organization systematically manages an ecosystem of external partners and actively participates in networks to co-create value and exchange knowledge."
+                    ]
+                },
+                {
+                    "index": 33,
+                    "id": "open-innovation-collaboration",
+                    "title": "Open Innovation and Stakeholder Collaboration",
+                    "question": "How does the organization integrate external stakeholders (customers, suppliers, startups, universities, etc.) into its innovation process to co-create value?",
+                    "options": [
+                        "The organization innovates in isolation. Interaction with external stakeholders is minimal or purely transactional.",
+                        "Ideas or feedback are gathered from some stakeholders (mainly customers) reactively, but without a structured collaboration process.",
+                        "The organization proactively manages an open innovation ecosystem, systematically collaborating with various stakeholders (customers, suppliers, partners) to develop new solutions."
                     ]
                 }
             ]
