@@ -1,6 +1,4 @@
-# Innovation Management Maturity Assessment (IMMQ)
-
-https://innv0.github.io/assessmeNNt/
+# Innovation Management Maturity Assessment
 
 <section class="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
 <div class="p-8 md:p-12 lg:px-16 lg:py-24">
