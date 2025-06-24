@@ -21,15 +21,9 @@
    </div>
    </div>
 </div>
-
-<img
-   alt=""
-   src="assets/hero.png"
-   class="h-56 w-full object-cover sm:h-full"
-/>
 </section>
 
-![alt text](assets/hero.png)
+![alt text](https://innv0.github.io/assessmeNNt/assets/hero.png)
 
 
 ## Purpose
