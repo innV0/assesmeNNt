@@ -29,6 +29,9 @@
 />
 </section>
 
+![alt text](assets/hero.png)
+
+
 ## Purpose
 
 The primary purpose of this application is to enable organizations to:
