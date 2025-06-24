@@ -1,24 +1,24 @@
 # Innovation Management Maturity Assessment
 
-<section class="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2">
-<div class="p-8 md:p-12 lg:px-16 lg:py-24">
-   <div class="mx-auto max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-   <h2 class="text-2xl font-bold text-gray-900 md:text-3xl">
-      Assess your organization's innovation maturity
-   </h2>
-
-   <p class="hidden text-gray-500 md:mt-4 md:block">
-      The Innovation Management Maturity Assessment is a web-based tool designed to help organizations evaluate and improve their innovation capabilities. It provides a structured framework for assessing an organization's innovation maturity across five key dimensions using a two-axis evaluation system.
-   </p>
-
-   <div class="mt-4 md:mt-8">
+<section class="bg-white lg:grid lg:h-screen lg:place-content-center">
+  <div class="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
+   <div class="mx-auto max-w-prose text-center">
+      <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl">
+         Assess your organization's
+         <strong class="text-indigo-600"> innovation</strong>
+         maturity
+      </h1>
+      <p class="mt-4 text-base text-pretty text-gray-700 sm:text-lg/relaxed">
+         The Innovation Management Maturity Assessment is a web-based tool designed to help organizations evaluate and improve their innovation capabilities. It provides a structured framework for assessing an organization's innovation maturity across five key dimensions using a two-axis evaluation system.
+      </p>
+      <div class="mt-4 flex justify-center gap-4 sm:mt-6">
       <a
          href="https://innv0.github.io/assessmeNNt/"
          class="inline-block rounded-sm bg-emerald-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-emerald-700 focus:ring-3 focus:ring-yellow-400 focus:outline-hidden"
       >
          Start AssessmeNNt
       </a>
-   </div>
+      </div>
    </div>
 </div>
 </section>
